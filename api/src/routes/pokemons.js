@@ -14,7 +14,7 @@ pokemons.get('/',async (req,res)=>{
       const PokemonDB= await Pokemon.findAll( // me trae un array con 1 solo objto
         {
           where: {
-            nombre: name
+            name: name
           }
         }
       )
@@ -99,7 +99,7 @@ pokemons.get('/',async (req,res)=>{
   }
   else{
     try {
-      const request40= await axios({method:'GET',url: 'https://pokeapi.co/api/v2/pokemon'})
+      const request40= await axios({method:'GET',url: 'https://pokeapi.co/api/v2/pokemon?limit=40'})
       let arrayObjetos= request40.data.results
       console.log(arrayObjetos.length)
       const arrayPromises= arrayObjetos.map(element=>promesa(element.url)) //creo un array de promises 
