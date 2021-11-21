@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { getPokes, homeName } from '../../actions/actions'
+import { dispatcher, filter, getPokes, homeName } from '../../actions/actions'
 
 const Form = () => {
     const dispatch = useDispatch()
-    const pokeHome = useSelector(store=>store.pokeHome)
+    const pokeHome = useSelector(store=> store.pokeHome)
+    const [pokemon, setpokemon] = useState("")
     
     
     function handleOnChange (e) {
-        dispatch(homeName(e.target.value))
+       /*  if(!isNaN(Number(e.target.value))) {
+            setpokemon("")
+            return alert("no se pueden ingresar numeros")    
+        } */
+        setpokemon(e.target.value)
+        dispatch(homeName(e.target.value.toLowerCase()))
     }
 
     function handleOnClick(e) {
         e.preventDefault()
-        dispatch(getPokes(pokeHome))
+        if(pokeHome!=="")dispatch(getPokes(pokeHome))
+        else dispatch(dispatcher(""))
+        dispatch(filter(""))
+        dispatch(homeName(""))
+        setpokemon("")
     }
     
     return (
@@ -22,7 +32,7 @@ const Form = () => {
                 <button onClick={handleOnClick}>
                     Buscar
                 </button>
-                <input onChange={handleOnChange} name="input" type="text" />
+                <input onChange={handleOnChange} name="input" type="text" value={pokemon} placeholder="Ingrese el nombre o ID"/>
             </form>
         </div>
     )

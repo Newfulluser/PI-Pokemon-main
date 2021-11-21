@@ -90,7 +90,7 @@ pokemons.get('/',async (req,res)=>{
           }
           res.json(infoPokemon)
         } catch (error) {
-          res.json('no existe ese pokemon')
+          res.json('No existe ese pokemon')
         }
       }
     } catch (error) {
@@ -112,9 +112,11 @@ pokemons.get('/',async (req,res)=>{
             return  e.type.name
           })  
           const infoPokemon= {
+            id: element.id,
             name: element.name,
             types: id_tipo,
-            img: element.sprites.other.home.front_default
+            img: element.sprites.other.home.front_default,
+            attack: element.stats[1].base_stat
           }
           pokemones.push(infoPokemon)
         })
